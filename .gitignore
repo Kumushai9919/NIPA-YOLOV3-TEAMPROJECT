@@ -1,0 +1,53 @@
+# Checkpoints and models
+runs/
+checkpoints/
+*.pth
+*.pt
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Data directories
+/data/annotations/
+/data/images/
+
+# Generated visualization files
+visualization_*.jpg
+visualization_*.png
+
+# Log files
+*.log
+logs/
+
+# Environment
+.env
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Test outputs
+test_output/
+output/
+.idea/
+
+# System files
+.DS_Store
+*.log

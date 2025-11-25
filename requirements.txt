@@ -1,0 +1,23 @@
+# YOLOv3 Production Requirements
+# 생산용 YOLOv3 필요 패키지
+
+# Core PyTorch
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Image processing
+Pillow>=9.0.0
+opencv-python>=4.7.0
+
+# Data handling
+numpy>=1.21.0
+tqdm>=4.64.0
+
+# Visualization (optional)
+matplotlib>=3.5.0
+
+# Configuration
+PyYAML>=6.0
+
+# Development tools (optional)
+pytest>=7.0.0
