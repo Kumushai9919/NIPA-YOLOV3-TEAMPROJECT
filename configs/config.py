@@ -29,7 +29,7 @@ class Config:
     ]
     
     # 훈련 설정
-    BATCH_SIZE = 8  # M1 Pro용 작은 배치 크기
+    BATCH_SIZE = 8  # 작은 배치 크기 (GPU 메모리에 따라 조정)
     LEARNING_RATE = 1e-4
     NUM_EPOCHS = 100
     EPOCHS = 5  # 10개 샘플용 데모 에폭
@@ -40,8 +40,12 @@ class Config:
     VAL_SPLIT = 0.15
     TEST_SPLIT = 0.05
     
-    # 장치 설정
-    DEVICE = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+    # 장치 설정 (CUDA > MPS > CPU 순서로 자동 선택)
+    DEVICE = torch.device(
+        "cuda" if torch.cuda.is_available() 
+        else "mps" if torch.backends.mps.is_available() 
+        else "cpu"
+    )
     
     # YOLOv3의 3개 스케일용 앵커
     ANCHORS = [
@@ -55,7 +59,7 @@ class Config:
     NMS_THRESHOLD = 0.4     # 비최대 억제 임계값
     
     # 경로 설정
-    DATA_DIR = "demo_detection_data"  # 10개 이미지 데모 데이터 사용
+    DATA_DIR = "data"  # 10개 이미지 샘플 데이터 (실제 훈련시 AI Hub 데이터 사용)
     
     # 데이터 증강
     AUGMENT = True
