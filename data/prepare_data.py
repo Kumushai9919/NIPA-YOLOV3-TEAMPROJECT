@@ -6,7 +6,7 @@ import os
 import random
 import argparse
 from pathlib import Path
-# from tqdm import tqdm  # Comment out for now
+# from tqdm import tqdm  # 현재 주석 처리
 from PIL import Image
 
 def validate_yolo_label(label_path, num_classes=25):
@@ -113,7 +113,7 @@ def scan_dataset(data_dir, num_classes=25, extensions=('.jpg', '.jpeg', '.png'))
     
     print("🔍 Validating dataset...")
     for i, img_path in enumerate(image_files):
-        if i % 5 == 0:  # Print progress every 5 files
+        if i % 5 == 0:  # 5개 파일마다 진행률 출력
             print(f"Validating files... {i+1}/{len(image_files)}")
         # 대응하는 라벨 파일 찾기
         label_path = labels_dir / f"{img_path.stem}.txt"

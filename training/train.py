@@ -17,7 +17,7 @@ from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import CosineAnnealingLR, StepLR
 import argparse
 from pathlib import Path
-# from tqdm import tqdm  # Comment out for now
+# from tqdm import tqdm  # 현재 주석 처리
 import time
 import json
 from datetime import datetime
@@ -25,7 +25,7 @@ from datetime import datetime
 # 프로젝트 모듈 import
 import sys
 import os
-# Add project root to path
+# 프로젝트 루트를 경로에 추가
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from models.model import YOLOv3, create_model
@@ -250,11 +250,11 @@ class ProductionTrainer:
                 scale_loss, _ = self.criterion(output, targets, anchors)
                 total_loss_value += scale_loss
                 
-            # Backward pass
+            # 역방향 패스
             self.optimizer.zero_grad()
             total_loss_value.backward()
             
-            # Gradient clipping (그래디언트 폭발 방지)
+            # 그래디언트 클리핑 (그래디언트 폭발 방지)
             torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
             
             self.optimizer.step()
@@ -367,7 +367,7 @@ class ProductionTrainer:
             self.train_losses.append(train_loss)
             self.val_losses.append(val_loss)
             
-            # Best 모델 체크
+            # 최고 모델 확인
             is_best = val_loss < self.best_val_loss
             if is_best:
                 self.best_val_loss = val_loss

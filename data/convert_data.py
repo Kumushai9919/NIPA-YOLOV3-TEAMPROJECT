@@ -7,11 +7,11 @@ import json
 import os
 from pathlib import Path
 
-# AI Hub class mapping to YOLO class IDs
+# AI Hub 클래스를 YOLO 클래스 ID로 매핑
 CLASS_MAPPING = {
-    'person': 0,        # person -> child/adult (simplified)
-    'road_etc': 13,     # road_etc -> bollard (example mapping)
-    'vehicle': 8,       # vehicle -> car (example mapping)
+    'person': 0,        # person -> child/adult (단순화)
+    'road_etc': 13,     # road_etc -> bollard (예제 매핑)
+    'vehicle': 8,       # vehicle -> car (예제 매핑)
     'sign': 17,         # sign -> sign
     'traffic_light': 14 # traffic_light -> ped_signal
 }
@@ -22,7 +22,7 @@ def convert_json_to_yolo(data_dir="data"):
     annotations_dir = Path(data_dir) / "annotations"
     labels_dir = Path(data_dir) / "labels"
     
-    # Create labels directory
+    # labels 디렉토리 생성
     labels_dir.mkdir(exist_ok=True)
     
     print(f"🔄 Converting AI Hub JSON → YOLO format...")
@@ -37,33 +37,33 @@ def convert_json_to_yolo(data_dir="data"):
             with open(json_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
-            # Get image info
+            # 이미지 정보 가져오기
             filename = data['file']['filename']
             img_width = data['info']['width']
             img_height = data['info']['height']
             
-            # Create corresponding .txt file
+            # 해당 .txt 파일 생성
             txt_file = labels_dir / f"{json_file.stem}.txt"
             
             with open(txt_file, 'w') as f:
-                # Process annotations
+                # 어노테이션 처리
                 if 'annotations' in data and data['annotations']:
                     for ann in data['annotations']:
                         if 'bbox' in ann and 'object super class' in ann:
-                            # Get bbox coordinates [x, y, w, h]
+                            # bbox 좌표 가져오기 [x, y, w, h]
                             x, y, w, h = ann['bbox']
                             
-                            # Convert to YOLO format (normalized center coordinates)
+                            # YOLO 형식으로 변환 (정규화된 중심 좌표)
                             x_center = (x + w/2) / img_width
                             y_center = (y + h/2) / img_height
                             norm_w = w / img_width
                             norm_h = h / img_height
                             
-                            # Map class to YOLO class ID
+                            # 클래스를 YOLO 클래스 ID로 매핑
                             class_name = ann['object super class']
-                            class_id = CLASS_MAPPING.get(class_name, 0)  # Default to 0 (person)
+                            class_id = CLASS_MAPPING.get(class_name, 0)  # 기본값 0 (person)
                             
-                            # Write YOLO format line
+                            # YOLO 형식 라인 작성
                             f.write(f"{class_id} {x_center:.6f} {y_center:.6f} {norm_w:.6f} {norm_h:.6f}\n")
                             total_objects += 1
             

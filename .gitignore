@@ -1,28 +1,28 @@
-# Checkpoints and models
+# 체크포인트와 모델
 runs/
 checkpoints/
 *.pth
 *.pt
 
-# Python cache
+# Python 캐시
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 
-# Data directories
+# 데이터 디렉토리
 /data/annotations/
 /data/images/
 
-# Generated visualization files
+# 생성된 시각화 파일
 visualization_*.jpg
 visualization_*.png
 
-# Log files
+# 로그 파일
 *.log
 logs/
 
-# Environment
+# 환경 설정
 .env
 venv/
 env/
@@ -40,10 +40,10 @@ env/
 ehthumbs.db
 Thumbs.db
 
-# Jupyter Notebook
+# Jupyter 노트북
 .ipynb_checkpoints
 
-# Test outputs
+# 테스트 출력
 test_output/
 output/
 .idea/

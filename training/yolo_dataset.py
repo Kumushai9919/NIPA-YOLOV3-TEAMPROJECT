@@ -20,7 +20,7 @@ class YOLODataset(Dataset):
         self.img_size = img_size
         self.transform = transform
         
-        # Load image paths
+        # 이미지 경로 로드
         with open(img_paths_file, 'r') as f:
             self.img_paths = [line.strip() for line in f.readlines()]
         
@@ -33,30 +33,30 @@ class YOLODataset(Dataset):
         # Load image
         img_path = self.img_paths[idx]
         
-        # Fix path for different working directories
+        # 다른 작업 디렉토리에 대한 경로 수정
         if not img_path.startswith('/') and not img_path.startswith('../'):
             if img_path.startswith('data/'):
-                img_path = '../' + img_path  # Add ../ prefix when running from training/
+                img_path = '../' + img_path  # training/에서 실행할 때 ../ 접두사 추가
         
         image = cv2.imread(img_path)
         if image is None:
             print(f"Warning: Could not load image {img_path}")
-            # Return dummy data with proper normalization
+            # 적절한 정규화로 더미 데이터 반환
             return torch.zeros(3, self.img_size, self.img_size), torch.zeros(1, 5)
         
-        # Convert BGR to RGB
+        # BGR을 RGB로 변환
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         
-        # Resize image
+        # 이미지 크기 조정
         image = cv2.resize(image, (self.img_size, self.img_size))
         
-        # Normalize to [0, 1]
+        # [0, 1]로 정규화
         image = image.astype(np.float32) / 255.0
         
-        # Convert to tensor and rearrange dimensions
+        # 텐서로 변환하고 차원 재배열
         image = torch.from_numpy(image).permute(2, 0, 1)
         
-        # Load corresponding label
+        # 해당 라벨 로드
         label_path = img_path.replace('/images/', '/labels/').replace('.jpg', '.txt')
         
         try:
@@ -64,7 +64,7 @@ class YOLODataset(Dataset):
                 lines = f.readlines()
             
             if lines:
-                # Parse YOLO format: class x_center y_center width height
+                # YOLO 형식 파싱: class x_center y_center width height
                 targets = []
                 for line in lines:
                     line = line.strip()
