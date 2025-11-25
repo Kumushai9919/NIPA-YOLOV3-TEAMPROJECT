@@ -16,8 +16,8 @@
 
 ### 1. 설치
 ```bash
-git clone https://github.com/your-username/yolo-children-protection.git
-cd yolo-children-protection
+git clone https://github.com/Kumushai9919/NIPA-YOLOV3-TEAMPROJECT.git
+cd NIPA-YOLOV3-TEAMPROJECT
 pip install -r requirements.txt
 ```
 
@@ -91,14 +91,14 @@ yolo_children_protection/
 
 전체 옵션 확인:
 ```bash
-python train_production.py --help
+python training/train.py --help
 ```
  
 ### 훈련 재개
 ```bash
-python train_production.py \
-    --data-dir /path/to/dataset \
-    --resume ./checkpoints/last.pt
+python training/train.py \
+    --data-dir data \
+    --resume training/checkpoints/last.pt
 ```
 
  
