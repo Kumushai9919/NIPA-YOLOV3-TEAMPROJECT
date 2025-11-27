@@ -1,4 +1,5 @@
 # YOLOv3 Children Protection Zone Detection
+## NIPA AI BOOTCAMP
 
 > **어린이 보호구역 위험 탐지를 위한 YOLOv3 구현**  
 > Production-ready YOLOv3 implementation for children protection zone risk detection
